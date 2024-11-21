@@ -28,89 +28,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
-require("lazy").setup({
-	spec = {
-		{ "rose-pine/neovim", name = "rose-pine" },
-		{ "binhtran432k/dracula.nvim", lazy = false, priority = 1000, opts = {} },
-		{ "marko-cerovac/material.nvim" },
-		{ "nvim-telescope/telescope.nvim", tag = "0.1.8", dependencies = { "nvim-lua/plenary.nvim" } },
-		{
-			"nvim-treesitter/nvim-treesitter",
-			build = ":TSUpdate",
-			config = function()
-				local configs = require("nvim-treesitter.configs")
-
-				configs.setup({
-					ensure_installed = {
-						"scala",
-						"rust",
-						"c",
-						"lua",
-						"vim",
-						"vimdoc",
-						"query",
-						"elixir",
-						"heex",
-						"javascript",
-						"html",
-					},
-					sync_install = false,
-					highlight = { enable = true },
-					indent = { enable = true },
-				})
-			end,
-		},
-		{
-			"nvim-neo-tree/neo-tree.nvim",
-			branch = "v3.x",
-			dependencies = {
-				"nvim-lua/plenary.nvim",
-				"nvim-tree/nvim-web-devicons",
-				"MunifTanjim/nui.nvim",
---				"3rd/image.nvim",
-			},
-		},
-		{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
-		{ "williamboman/mason.nvim" },
-		{ "williamboman/mason-lspconfig.nvim" },
-		{ "neovim/nvim-lspconfig" },
-		{ "nvim-telescope/telescope-ui-select.nvim" },
-		{ "nvimtools/none-ls.nvim" },
-		{ "hrsh7th/nvim-cmp" },
-		{
-			"L3MON4D3/LuaSnip",
-			dependencies = { "saadparwaiz1/cmp_luasnip", "rafamadriz/friendly-snippets" },
-		},
-		{ "hrsh7th/cmp-nvim-lsp" },
-		{
-			"christoomey/vim-tmux-navigator",
-			cmd = {
-				"TmuxNavigateLeft",
-				"TmuxNavigateDown",
-				"TmuxNavigateUp",
-				"TmuxNavigateRight",
-				"TmuxNavigatePrevious",
-			},
-			keys = {
-				{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-				{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-				{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-				{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-				{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-			},
-		},
-		{
-			"goolord/alpha-nvim",
-			dependencies = {
-				"echasnovski/mini.icons",
-				"nvim-lua/plenary.nvim",
-			},
-			config = function()
-				require("alpha").setup(require("alpha.themes.theta").config)
-			end,
-		},
-		-- add your plugins here
-	},
+require("lazy").setup("plugins", {
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
 	install = {
@@ -120,41 +38,17 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 
-require("rose-pine").setup()
-require("lualine").setup({
-	options = {
-		theme = "dracula",
-	},
-})
-require("mason").setup()
+--require("rose-pine").setup()
+--require("lualine").setup()
+--require("mason").setup()
 
-vim.cmd("colorscheme rose-pine")
+--vim.cmd("colorscheme rose-pine")
 --vim.g.material_style = "deep ocean"
 
 local builtin = require("telescope.builtin")
-require("telescope").setup({
-	extensions = {
-		["ui-select"] = {
-			require("telescope.themes").get_dropdown({
-				-- even more opts
-			}),
-
-			-- pseudo code / specification for writing custom displays, like the one
-			-- for "codeactions"
-			-- specific_opts = {
-			--   [kind] = {
-			--     make_indexed = function(items) -> indexed_items, width,
-			--     make_displayer = function(widths) -> displayer
-			--     make_display = function(displayer) -> function(e)
-			--     make_ordinal = function(e) -> string
-			--   },
-			--   -- for example to disable the custom builtin "codeactions" display
-			--      do the following
-			--   codeactions = false,
-			-- }
-		},
-	},
-})
+--require("telescope").setup({
+--	,
+--})
 require("telescope").load_extension("ui-select")
 require("mason-lspconfig").setup({
 	ensure_installed = { "lua_ls", "rust_analyzer", "dockerls", "pylyzer", "sqls" },
